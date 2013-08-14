@@ -13,6 +13,7 @@ NSString *const VVDDefaultTriggerString = @"///";
 NSString *const kVVDUseSpaces = @"com.onevcat.VVDocumenter.useSpaces";
 NSString *const kVVDSpaceCount = @"com.onevcat.VVDocumenter.spaceCount";
 NSString *const kVVDTriggerString = @"com.onevcat.VVDocumenter.triggerString";
+NSString *const kVVDPrefixWithStar = @"com.onevcat.VVDocumenter.prefixWithStar";
 
 @implementation VVDocumenterSetting
 
@@ -20,10 +21,22 @@ NSString *const kVVDTriggerString = @"com.onevcat.VVDocumenter.triggerString";
 {
     static dispatch_once_t once;
     static VVDocumenterSetting *defaultSetting;
-    dispatch_once(&once, ^ { defaultSetting = [[VVDocumenterSetting alloc] init]; });
+    dispatch_once(&once, ^ {
+        defaultSetting = [[VVDocumenterSetting alloc] init];
+        
+        NSDictionary *defaults = @{kVVDPrefixWithStar: @NO,
+                                   kVVDUseSpaces: @YES};
+        [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+    });
     return defaultSetting;
 }
-
+/*!
+ @method
+ @abstract  <#abstract#>
+ @discussion  <#discussion#>
+ 
+ @return <#return value description#>
+ */
 -(BOOL) useSpaces
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDUseSpaces];
@@ -35,11 +48,10 @@ NSString *const kVVDTriggerString = @"com.onevcat.VVDocumenter.triggerString";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-
 -(NSInteger) spaceCount
 {
     NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:kVVDSpaceCount];
-    return (count <= 0) ? 4 : count;
+    return (count <= 0) ? 2 : count;
 }
 
 -(void) setSpaceCount:(NSInteger)spaceCount
@@ -71,6 +83,17 @@ NSString *const kVVDTriggerString = @"com.onevcat.VVDocumenter.triggerString";
         [[NSUserDefaults standardUserDefaults] setObject:triggerString forKey:kVVDTriggerString];
     }
 
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(BOOL) prefixWithStar
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDPrefixWithStar];
+}
+
+-(void) setPrefixWithStar:(BOOL)prefix
+{
+    [[NSUserDefaults standardUserDefaults] setBool:prefix forKey:kVVDPrefixWithStar];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

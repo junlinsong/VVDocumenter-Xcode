@@ -31,21 +31,36 @@
 
 -(NSString *) startComment
 {
+    NSMutableString *startString = [NSMutableString string];
+    
+    //firstLine
+    [startString appendFormat:@"%@/*!\n",self.indent];
+    //secondLine
+    [startString appendFormat:@"%@%@@%@\n",self.indent,self.prefixString,self.commenterType];
+    //thirdLine
+    [startString appendFormat:@"%@%@@abstract%@<#%@#>\n",self.indent,self.prefixString,self.space,@"abstract"];
+
     if (self.hasDiscussion) {
-        return [NSString stringWithFormat:@"%@/*!\n%@@%@\n%@@abstract%@<#%@#>\n%@@discussion%@<#%@#>\n",self.indent,self.indent,self.commenterType,self.space,self.space,@"abstract",self.indent,self.space,@"discussion"];
-    }else{
-        return [NSString stringWithFormat:@"%@/*!\n%@@%@\n%@@abstract%@<#%@#>\n",self.indent,self.indent,self.commenterType,self.space,self.space,@"abstract"];
-    }
+        [startString appendFormat:@"%@%@@discussion%@<#%@#>\n",self.indent,self.prefixString,self.space,@"discussion"];
+    }    
+    return startString;
 }
 
 -(NSString *) argumentsComment
 {
-    NSMutableString *result = [NSMutableString stringWithString:@""];
-    for (VVArgument *arg in self.arguments) {
-        if (result.length == 0) {
-            [result appendFormat:@"%@ \n",self.indent];
-        }
-        [result appendFormat:@"%@ @param%@%@%@<#%@ description#>\n",self.space,self.space,arg.name,self.space,arg.name];
+    if (self.arguments.count == 0)
+        return @"";
+    
+    // start of with an empty line
+    NSMutableString *result = [NSMutableString string];
+    
+    int longestNameLength = [[self.arguments valueForKeyPath:@"@max.name.length"] intValue];
+    
+    for (VVArgument *arg in self.arguments)
+    {
+        NSString *paddedName = [arg.name stringByPaddingToLength:longestNameLength withString:@" " startingAtIndex:0];
+        
+        [result appendFormat:@"%@@param %@ <#%@ description#>\n", self.prefixString, paddedName, arg.name];
     }
     return result;
 }
@@ -55,7 +70,7 @@
     if (!self.hasReturn) {
         return @"";
     } else {
-        return [NSString stringWithFormat:@"%@%@ @return%@<#return value description#>\n",self.indent,self.space,self.space];
+        return [NSString stringWithFormat:@"%@@return <#return value description#>\n", self.prefixString];
     }
 }
 
@@ -70,6 +85,21 @@
                                                   [self argumentsComment],
                                                   [self returnComment],
                                                   [self endComment]];
+}
+
+-(NSString *) emptyLine
+{
+    return [NSString stringWithFormat:@"%@\n", self.prefixString];
+}
+
+-(NSString *) prefixString
+{
+    if ([[VVDocumenterSetting defaultSetting] prefixWithStar]) {
+        return [NSString stringWithFormat:@"%@ *%@", self.indent, self.space];
+    }
+    else {
+        return [NSString stringWithFormat:@"%@ ", self.indent];
+    }
 }
 
 -(void) parseArguments

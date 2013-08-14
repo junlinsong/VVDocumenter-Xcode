@@ -17,6 +17,8 @@
 
 @property (assign) IBOutlet NSStepper *stepperCount;
 
+@property (assign) IBOutlet NSButton *btnPrefixWithStar;
+
 @end
 
 @implementation VVDSettingPanelWindowController
@@ -39,6 +41,8 @@
     [self.tfTrigger setStringValue:[[VVDocumenterSetting defaultSetting] triggerString]];
     self.btnUseSpaces.state = (NSCellStateValue)[[VVDocumenterSetting defaultSetting] useSpaces];
     
+    self.btnPrefixWithStar.state = (NSCellStateValue)[[VVDocumenterSetting defaultSetting] prefixWithStar];
+    
     [self updateUseSpace:self.btnUseSpaces.state];
     [self syncSpaceCount];
     
@@ -51,13 +55,14 @@
 }
 
 - (IBAction)btnResetPressed:(id)sender {
-    [[VVDocumenterSetting defaultSetting] setUseSpaces:NO];
+    [[VVDocumenterSetting defaultSetting] setUseSpaces:YES];
     [[VVDocumenterSetting defaultSetting] setTriggerString:VVDDefaultTriggerString];
-    [[VVDocumenterSetting defaultSetting] setSpaceCount:4];
+    [[VVDocumenterSetting defaultSetting] setSpaceCount:2];
+    [[VVDocumenterSetting defaultSetting] setPrefixWithStar:NO];
     
-    self.btnUseSpaces.state = NSOffState;
+    self.btnUseSpaces.state = NSOnState;
     [self updateUseSpace:self.btnUseSpaces.state];
-    
+    self.btnPrefixWithStar.state = NSOffState;
     [self.tfTrigger setStringValue:VVDDefaultTriggerString];
     
     [self syncSpaceCount];
@@ -67,6 +72,10 @@
 - (IBAction)btnUseSpacesPressed:(id)sender {
     [[VVDocumenterSetting defaultSetting] setUseSpaces:self.btnUseSpaces.state];
     [self updateUseSpace:self.btnUseSpaces.state];
+}
+
+- (IBAction)btnPrefixWithStarPressed:(id)sender {
+    [[VVDocumenterSetting defaultSetting] setPrefixWithStar:self.btnPrefixWithStar.state];
 }
 
 -(void) syncSpaceCount

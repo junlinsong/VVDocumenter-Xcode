@@ -20,4 +20,5 @@
 -(id) initWithIndentString:(NSString *)indent codeString:(NSString *)code;
 -(NSString *) document;
 -(void) parseArguments;
+
 @end
