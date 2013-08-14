@@ -16,6 +16,7 @@
         self.commenterType = @"class";
         self.hasDiscussion = NO;
     }
+    
     return self;
 }
 
