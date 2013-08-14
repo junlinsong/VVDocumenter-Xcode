@@ -19,4 +19,8 @@
 #import "VVVariableCommenter.h"
 #import "VVArgument.h"
 
+//added by jun
+#import "VVClassCommenter.h"
+#import "VVProtocolCommenter.h"
+
 #endif

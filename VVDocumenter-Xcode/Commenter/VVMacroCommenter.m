@@ -10,6 +10,14 @@
 
 @implementation VVMacroCommenter
 
+-(id)initWithIndentString:(NSString *)indent codeString:(NSString *)code
+{
+    if (self = [super initWithIndentString:indent codeString:code]) {
+        self.commenterType = @"macro";
+    }
+    return self;
+}
+
 -(void) captureReturnType
 {
     self.hasReturn = YES;

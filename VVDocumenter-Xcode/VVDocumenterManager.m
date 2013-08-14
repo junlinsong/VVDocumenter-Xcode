@@ -20,7 +20,9 @@
 @end
 
 @implementation VVDocumenterManager
-+(void)pluginDidLoad:(NSBundle *)plugin {
+
++(void)pluginDidLoad:(NSBundle *)plugin
+{
     VVLog(@"VVDocumenter: Plugin loaded successfully");
     [self shared];
 }

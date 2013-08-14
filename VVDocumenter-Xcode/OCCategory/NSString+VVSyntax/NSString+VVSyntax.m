@@ -31,6 +31,16 @@
 	return [self vv_matchesPatternRegexPattern:@"^\\s*\\@property"];
 }
 
+-(BOOL) vv_isClass
+{
+	return [self vv_matchesPatternRegexPattern:@"^\\s*\\@interface"];
+}
+
+-(BOOL) vv_isProtocol
+{
+	return [self vv_matchesPatternRegexPattern:@"^\\s*\\@protocol"];
+}
+
 -(BOOL) vv_isMacro
 {
     return [self vv_matchesPatternRegexPattern:@"^\\s*\\#define"];

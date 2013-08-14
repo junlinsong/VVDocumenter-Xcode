@@ -10,6 +10,15 @@
 
 @implementation VVFunctionCommenter
 
+-(id)initWithIndentString:(NSString *)indent codeString:(NSString *)code
+{
+    if (self = [super initWithIndentString:indent codeString:code]) {
+        self.commenterType = @"function";
+        self.hasDiscussion = YES;
+    }
+    return self;
+}
+
 -(void) captureReturnType
 {
     NSArray *arr = [self.code componentsSeparatedByString:@"("];

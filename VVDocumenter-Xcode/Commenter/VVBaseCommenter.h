@@ -10,10 +10,12 @@
 
 @interface VVBaseCommenter : NSObject
 
+@property (nonatomic, copy) NSString *commenterType;
 @property (nonatomic, copy) NSString *indent;
 @property (nonatomic, copy) NSString *code;
 @property (nonatomic, retain) NSMutableArray *arguments;
 @property (nonatomic, assign) BOOL hasReturn;
+@property (nonatomic, assign) BOOL hasDiscussion;
 
 -(id) initWithIndentString:(NSString *)indent codeString:(NSString *)code;
 -(NSString *) document;

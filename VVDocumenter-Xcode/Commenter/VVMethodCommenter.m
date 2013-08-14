@@ -11,6 +11,15 @@
 
 @implementation VVMethodCommenter
 
+-(id)initWithIndentString:(NSString *)indent codeString:(NSString *)code
+{
+    if (self = [super initWithIndentString:indent codeString:code]) {
+        self.commenterType = @"method";
+        self.hasDiscussion = YES;
+    }
+    return self;
+}
+
 -(void) captureReturnType
 {
     NSArray * matchedTypes = [self.code vv_stringsByExtractingGroupsUsingRegexPattern:@"^\\s*[+-]\\s*\\(([^\\(\\)]*)\\)"];

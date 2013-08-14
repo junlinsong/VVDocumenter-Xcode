@@ -1,24 +1,22 @@
 //
-//  VVPropertyCommenter.m
+//  VVClassCommenter.m
 //  VVDocumenter-Xcode
 //
-//  Created by 王 巍 on 13-7-17.
-//  Copyright (c) 2013年 OneV's Den. All rights reserved.
+//  Created by jun on 8/14/13.
+//  Copyright (c) 2013 OneV's Den. All rights reserved.
 //
 
-#import "VVPropertyCommenter.h"
+#import "VVClassCommenter.h"
 
-@implementation VVPropertyCommenter
+@implementation VVClassCommenter
 
 -(id)initWithIndentString:(NSString *)indent codeString:(NSString *)code
 {
     if (self = [super initWithIndentString:indent codeString:code]) {
-        self.commenterType = @"property";
+        self.commenterType = @"class";
         self.hasDiscussion = NO;
     }
     return self;
 }
-
-
 
 @end

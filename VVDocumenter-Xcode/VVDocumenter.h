@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface VVDocumenter : NSObject
+
 -(id) initWithCode:(NSString *)code;
+
 -(NSString *) baseIndentation;
 -(NSString *) document;
+
 @end

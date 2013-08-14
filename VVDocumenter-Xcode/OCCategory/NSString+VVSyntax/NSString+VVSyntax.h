@@ -19,4 +19,9 @@
 -(BOOL) vv_isStruct;
 -(BOOL) vv_isUnion;
 -(BOOL) vv_isComplieKeyword;
+
+//added by jun
+-(BOOL) vv_isClass;
+-(BOOL) vv_isProtocol;
+
 @end

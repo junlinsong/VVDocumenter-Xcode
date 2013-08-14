@@ -10,4 +10,12 @@
 
 @implementation VVEnumCommenter
 
+-(id)initWithIndentString:(NSString *)indent codeString:(NSString *)code
+{
+    if (self = [super initWithIndentString:indent codeString:code]) {
+        self.commenterType = @"enum";
+    }
+    return self;
+}
+
 @end

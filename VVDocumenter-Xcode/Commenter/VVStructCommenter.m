@@ -10,4 +10,12 @@
 
 @implementation VVStructCommenter
 
+-(id)initWithIndentString:(NSString *)indent codeString:(NSString *)code
+{
+    if (self = [super initWithIndentString:indent codeString:code]) {
+        self.commenterType = @"struct";
+    }
+    return self;
+}
+
 @end

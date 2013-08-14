@@ -51,6 +51,10 @@
         commenter = [[VVMethodCommenter alloc] initWithIndentString:baseIndent codeString:trimCode];
     } else if ([trimCode vv_isProperty]) {
         commenter = [[VVPropertyCommenter alloc] initWithIndentString:baseIndent codeString:trimCode];
+    }else if ([trimCode vv_isClass]) {
+        commenter = [[VVClassCommenter alloc] initWithIndentString:baseIndent codeString:trimCode];
+    }else if ([trimCode vv_isProtocol]) {
+        commenter = [[VVProtocolCommenter alloc] initWithIndentString:baseIndent codeString:trimCode];
     } else if ([trimCode vv_isCFunction]) {
         commenter = [[VVFunctionCommenter alloc] initWithIndentString:baseIndent codeString:trimCode];
     } else if ([trimCode vv_isMacro]) {
@@ -67,7 +71,5 @@
 
     return [commenter document];
 }
-
-
 
 @end

@@ -11,10 +11,12 @@
 #import "VVDocumenterSetting.h"
 
 @interface VVBaseCommenter()
+
 @property (nonatomic, copy) NSString *space;
 @end
 
 @implementation VVBaseCommenter
+
 -(id) initWithIndentString:(NSString *)indent codeString:(NSString *)code
 {
     self = [super init];
@@ -29,7 +31,11 @@
 
 -(NSString *) startComment
 {
-    return [NSString stringWithFormat:@"%@/**\n%@ *%@<#%@#>\n",self.indent,self.indent,self.space,@"Description"];
+    if (self.hasDiscussion) {
+        return [NSString stringWithFormat:@"%@/*!\n%@@%@\n%@@abstract%@<#%@#>\n%@@discussion%@<#%@#>\n",self.indent,self.indent,self.commenterType,self.space,self.space,@"abstract",self.indent,self.space,@"discussion"];
+    }else{
+        return [NSString stringWithFormat:@"%@/*!\n%@@%@\n%@@abstract%@<#%@#>\n",self.indent,self.indent,self.commenterType,self.space,self.space,@"abstract"];
+    }
 }
 
 -(NSString *) argumentsComment
@@ -37,20 +43,19 @@
     NSMutableString *result = [NSMutableString stringWithString:@""];
     for (VVArgument *arg in self.arguments) {
         if (result.length == 0) {
-            [result appendFormat:@"%@ *\n",self.indent];
+            [result appendFormat:@"%@ \n",self.indent];
         }
-        [result appendFormat:@"%@ *%@@param%@%@%@<#%@ description#>\n",self.indent,self.space,self.space,arg.name,self.space,arg.name];
+        [result appendFormat:@"%@ @param%@%@%@<#%@ description#>\n",self.space,self.space,arg.name,self.space,arg.name];
     }
     return result;
 }
 
 -(NSString *) returnComment
-
 {
     if (!self.hasReturn) {
         return @"";
     } else {
-        return [NSString stringWithFormat:@"%@ *\n%@ *%@@return%@<#return value description#>\n",self.indent,self.indent,self.space,self.space];
+        return [NSString stringWithFormat:@"%@%@ @return%@<#return value description#>\n",self.indent,self.space,self.space];
     }
 }
 

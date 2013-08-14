@@ -10,4 +10,12 @@
 
 @implementation VVVariableCommenter
 
+-(id)initWithIndentString:(NSString *)indent codeString:(NSString *)code
+{
+    if (self = [super initWithIndentString:indent codeString:code]) {
+        self.commenterType = @"variable";
+    }
+    return self;
+}
+
 @end
