@@ -15,6 +15,9 @@ NSString *const kVVDSpaceCount = @"com.onevcat.VVDocumenter.spaceCount";
 NSString *const kVVDTriggerString = @"com.onevcat.VVDocumenter.triggerString";
 NSString *const kVVDPrefixWithStar = @"com.onevcat.VVDocumenter.prefixWithStar";
 
+//add by jun
+NSString *const kVVDShowEditor = @"com.onevcat.VVDocumenter.showEditor";
+
 @implementation VVDocumenterSetting
 
 + (VVDocumenterSetting *)defaultSetting
@@ -25,18 +28,13 @@ NSString *const kVVDPrefixWithStar = @"com.onevcat.VVDocumenter.prefixWithStar";
         defaultSetting = [[VVDocumenterSetting alloc] init];
         
         NSDictionary *defaults = @{kVVDPrefixWithStar: @NO,
-                                   kVVDUseSpaces: @YES};
+                                   kVVDUseSpaces: @YES,
+                                   kVVDShowEditor: @NO};
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     });
     return defaultSetting;
 }
-/*!
- @method
- @abstract  <#abstract#>
- @discussion  <#discussion#>
- 
- @return <#return value description#>
- */
+
 -(BOOL) useSpaces
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDUseSpaces];
@@ -45,6 +43,17 @@ NSString *const kVVDPrefixWithStar = @"com.onevcat.VVDocumenter.prefixWithStar";
 -(void) setUseSpaces:(BOOL)useSpace
 {
     [[NSUserDefaults standardUserDefaults] setBool:useSpace forKey:kVVDUseSpaces];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL) showEditor
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDShowEditor];
+}
+
+- (void) setShowEditor:(BOOL)showEditor
+{
+    [[NSUserDefaults standardUserDefaults] setBool:showEditor forKey:kVVDShowEditor];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

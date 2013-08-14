@@ -19,6 +19,8 @@
 
 @property (assign) IBOutlet NSButton *btnPrefixWithStar;
 
+@property (assign) IBOutlet NSButton *btnShowEditor;
+
 @end
 
 @implementation VVDSettingPanelWindowController
@@ -40,8 +42,8 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     [self.tfTrigger setStringValue:[[VVDocumenterSetting defaultSetting] triggerString]];
     self.btnUseSpaces.state = (NSCellStateValue)[[VVDocumenterSetting defaultSetting] useSpaces];
-    
     self.btnPrefixWithStar.state = (NSCellStateValue)[[VVDocumenterSetting defaultSetting] prefixWithStar];
+    self.btnShowEditor.state = (NSCellStateValue)[[VVDocumenterSetting defaultSetting] showEditor];
     
     [self updateUseSpace:self.btnUseSpaces.state];
     [self syncSpaceCount];
@@ -59,10 +61,12 @@
     [[VVDocumenterSetting defaultSetting] setTriggerString:VVDDefaultTriggerString];
     [[VVDocumenterSetting defaultSetting] setSpaceCount:2];
     [[VVDocumenterSetting defaultSetting] setPrefixWithStar:NO];
+    [[VVDocumenterSetting defaultSetting] setShowEditor:NO];
     
     self.btnUseSpaces.state = NSOnState;
     [self updateUseSpace:self.btnUseSpaces.state];
     self.btnPrefixWithStar.state = NSOffState;
+    self.btnShowEditor.state = NSOffState;
     [self.tfTrigger setStringValue:VVDDefaultTriggerString];
     
     [self syncSpaceCount];
@@ -76,6 +80,11 @@
 
 - (IBAction)btnPrefixWithStarPressed:(id)sender {
     [[VVDocumenterSetting defaultSetting] setPrefixWithStar:self.btnPrefixWithStar.state];
+}
+
+- (IBAction)btnShowEditorPressed:(id)sender
+{
+    [[VVDocumenterSetting defaultSetting] setShowEditor:self.btnShowEditor.state];
 }
 
 -(void) syncSpaceCount

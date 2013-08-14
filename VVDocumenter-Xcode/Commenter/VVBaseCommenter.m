@@ -32,9 +32,14 @@
 -(NSString *) startComment
 {
     NSMutableString *startString = [NSMutableString string];
-    
+
     //firstLine
     [startString appendFormat:@"%@/*!\n",self.indent];
+    
+    if ([[VVDocumenterSetting defaultSetting] showEditor]) {
+        [startString appendFormat:@"%@%@ %@ ****** %@ ******\n",self.indent,self.prefixString,self.space,self.editorString];
+    }
+    
     //secondLine
     [startString appendFormat:@"%@%@@%@\n",self.indent,self.prefixString,self.commenterType];
     //thirdLine
@@ -100,6 +105,14 @@
     else {
         return [NSString stringWithFormat:@"%@ ", self.indent];
     }
+}
+
+- (NSString *)editorString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate new]];
+    return [NSString stringWithFormat:@"%@added by %@ on %@", self.indent,NSUserName(),dateString];
 }
 
 -(void) parseArguments

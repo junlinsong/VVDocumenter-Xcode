@@ -25,6 +25,9 @@ extern NSString *const VVDDefaultTriggerString;
 -(BOOL) prefixWithStar;
 -(void) setPrefixWithStar:(BOOL)prefix;
 
+- (BOOL) showEditor;
+- (void) setShowEditor:(BOOL)showEditor;
+
 -(NSString *) spacesString;
 
 @end
